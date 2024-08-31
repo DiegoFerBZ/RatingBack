@@ -2,6 +2,7 @@ import express from 'express';
 import userRouter from './routes/user-rt';
 import { checkUndefined } from './middlewares/checkUndefined';
 import { inicializarDB } from './infrastructure/db-postgres';
+import authRouter from './routes/auth-rt';
 
 
 const app = express();
@@ -14,7 +15,11 @@ const PORT = 3000;
 
 //middlewares
 app.use(checkUndefined)
+
+
+//Routes
 app.use('/user',userRouter)
+app.use('/api',authRouter)
 
 
 app.listen(PORT, () => {
