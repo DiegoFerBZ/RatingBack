@@ -5,11 +5,13 @@ import { checkUndefined } from './middlewares/checkUndefined';
 import { inicializarDB } from './infrastructure/db-postgres';
 import authRouter from './routes/auth-rt';
 import reviewRouter from './routes/review-rt';
+import { errorHandler } from './middlewares/exceptions/errorHandler';
+
 
 const app = express();
 app.use(express.json());
 
-// Inicializar la base de datos
+// Start db
 inicializarDB();
 
 // Configurar CORS para permitir solicitudes desde cualquier origen
