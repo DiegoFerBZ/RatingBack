@@ -4,7 +4,7 @@ import { User } from "../models/user";
 class UserService {
   userRepository = dataSource.getRepository(User);
 
-  registerNewUser(
+  async registerNewUser(
     name: string,
     email: string,
     password: string,
@@ -12,7 +12,7 @@ class UserService {
     username: string
   ): Promise<User> {
     const newUser: User = { name, email, password, lastname, username };
-    return this.userRepository.save(newUser);
+    return await this.userRepository.save(newUser);
   }
 }
 

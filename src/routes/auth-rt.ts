@@ -1,9 +1,9 @@
 import express from "express";
-import { registerUser } from "../controllers/user-ctr";
+import UserController from "../controllers/user-ctr";
 
 const authRouter = express.Router();
 
-authRouter.post('/auth/register', registerUser);
+authRouter.post('/auth/register', UserController.registerUser);
 
 
 
