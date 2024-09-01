@@ -1,4 +1,5 @@
 import { dataSource } from "../infrastructure/db-postgres";
+import { BussinesException } from "../middlewares/exceptions/bussinesException";
 import { User } from "../models/user";
 
 class UserService {
@@ -12,7 +13,15 @@ class UserService {
     username: string
   ): Promise<User> {
     const newUser: User = { name, email, password, lastname, username };
-    return await this.userRepository.save(newUser);
+    try {
+      return await this.userRepository.save(newUser);
+    } catch (error) {
+      if ((error as any).code === '23505') { 
+        throw new BussinesException('El usuario o correo ya existe', 400);
+      }
+      // Otros errores de base de datos
+      throw new BussinesException('Error al registrar usuario', 500);
+    }
   }
 }
 
