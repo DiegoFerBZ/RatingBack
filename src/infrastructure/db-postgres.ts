@@ -4,9 +4,9 @@ import { User } from "../models/user";
 export const dataSource = new DataSource({
   type: "postgres",
   host: "localhost",
-  port: 5432,
+  port: 5433,
   username: "postgres",
-  password: "test",
+  password: "12345",
   database: "rating-db",
   entities: [User],
   synchronize: true,
