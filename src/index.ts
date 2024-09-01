@@ -6,10 +6,14 @@ import { inicializarDB } from './infrastructure/db-postgres';
 import authRouter from './routes/auth-rt';
 import reviewRouter from './routes/review-rt';
 import { errorHandler } from './middlewares/exceptions/errorHandler';
+import { setupSwagger } from './tools/utils/swagger/swagger';
 
 
 const app = express();
 app.use(express.json());
+
+// Setup Swagger
+setupSwagger(app);
 
 // Start db
 inicializarDB();
@@ -26,10 +30,15 @@ const PORT = 3000;
 // Middlewares
 app.use(checkUndefined);
 
-// Routes
-app.use('/user', userRouter);
-app.use('/api', authRouter);
-app.use('/reviews', reviewRouter);
+//Routes
+app.use('/api/user',userRouter)
+app.use('/api/auth',authRouter)
+app.use('/api/reviews', reviewRouter);
+
+
+//Catch errors
+app.use(errorHandler)
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

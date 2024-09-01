@@ -23,6 +23,14 @@ class UserService {
       throw new BussinesException('Error al registrar usuario', 500);
     }
   }
+
+  async getUserByEmail(email: string): Promise<User> {
+    const user=await this.userRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new BussinesException('Usuario no registrado', 404);
+    }
+    return user;
+  }
 }
 
 export default new UserService();

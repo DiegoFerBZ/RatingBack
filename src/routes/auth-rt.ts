@@ -3,7 +3,9 @@ import UserController from "../controllers/user/user-ctr";
 
 const authRouter = express.Router();
 
-authRouter.post('/auth/register', UserController.registerUser);
+
+authRouter.post('/register', UserController.registerUser);
+authRouter.post('/login', UserController.loginUser);
 
 
 
