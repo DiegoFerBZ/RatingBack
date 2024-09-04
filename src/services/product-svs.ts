@@ -12,7 +12,7 @@ class ProductService {
     return await this.productRepository.findBy({ name });
   }
 
-  async registerNewUser(
+  async registerNewProduct(
     name: string,
     description: string,
     url_img: string,

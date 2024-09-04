@@ -33,6 +33,8 @@ app.use(checkUndefined);
 //Routes
 app.use('/user',userRouter)
 app.use('/api',authRouter)
+app.use('/api',productRouter)
+
 
 
 //Catch errors
