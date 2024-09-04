@@ -1,11 +1,12 @@
 import { Exclude, Expose } from "class-transformer";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "./product";
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn({ type: 'int' })
-  id_usuario?: number=0;
+  id?: number=0;
 
   @Column({ unique: true })
   @Expose()
@@ -26,5 +27,8 @@ export class User {
   @Column()
   @Expose()
   lastname!: string;
+
+  @OneToMany(() => Product, (product) => product.user)
+  products?: Product[];
 
 }

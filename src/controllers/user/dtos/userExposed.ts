@@ -1,16 +1,16 @@
 import { Exclude, Expose } from "class-transformer";
 
-export class UserCreatedDTO {
-  @Exclude()
-  id_usuario?: number;
-
+export class UserExposedDTO {
   @Expose()
+  id?: number;
+
+  @Exclude()
   name?: string;
 
-  @Expose()
+  @Exclude()
   email?: string;
 
-  @Expose()
+  @Exclude()
   lastname?: string;
 
   @Expose()

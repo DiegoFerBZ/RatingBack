@@ -3,7 +3,6 @@ import userSvs from '../../services/user-svs';
 import { CatcherException } from '../../tools/decorators/catcherException';
 import { hashPassword,verifyPassword } from '../../tools/utils/password-encrpyt';
 import { plainToClass} from 'class-transformer';
-import { UserCreatedDTO } from './dtos/userCreated';
 import { generateToken } from '../../tools/utils/json-token';
 import { BussinesException } from '../../middlewares/exceptions/bussinesException';
 
@@ -14,11 +13,10 @@ class UserController {
   
   public async registerUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { name, email, password, lastname, username } = req.body;
-    const newUser = await userSvs.registerNewUser(name, email, await hashPassword(password), lastname, username);
-    const userDTO = plainToClass(UserCreatedDTO, newUser)
+    await userSvs.registerNewUser(name, email, await hashPassword(password), lastname, username);
 
     // Enviar la respuesta
-    res.json(userDTO);
+    res.status(201).json("Usuario registrado con éxito");
   }
 
   public async loginUser(req: Request, res: Response, next: NextFunction): Promise<void> {

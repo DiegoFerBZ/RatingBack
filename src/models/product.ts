@@ -1,21 +1,29 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./user";
 
 @Entity('products')
 export class Product {
   @PrimaryGeneratedColumn({ type: 'int' })
-  id_product?: number=0;
-
-  @Column({ unique: true })
-  name!: string;
-
-  @Column({ unique: true })
-  description!: string;
-
-  @Column({ unique: true })
-  url_img!: string;
+  id?: number=0;
 
   @Column()
-  createdAt!: string;
+  name!: string;
+
+  @Column()
+  description!: string;
+
+  @Column()
+  review!:string;
+
+  @Column()
+  url_img!: string;
+
+  @Column('int')
+  rating!: number;
+  
+  @ManyToOne(() => User, (user) => user.products, { nullable: false })
+  @JoinColumn({ name: 'user_id' })
+  user!: User;
 
 }

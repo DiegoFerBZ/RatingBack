@@ -5,7 +5,7 @@ const secretKey = process.env.JWT_SECRET_KEY || "ratingApp";
 
 export function generateToken(user: User): string {
   const payload = {
-    id: user.id_usuario,
+    id: user.id,
     email: user.email,
   };
 

@@ -1,11 +1,10 @@
 import express from "express";
-import ProductController from "../controllers/product-ctr";
+import ProductController from "../controllers/product/product-ctr";
 
 const productRouter = express.Router();
 
-productRouter.post('/product/register', ProductController.registerProduct);
-productRouter.get('/product/products', ProductController.getProducts);
-productRouter.get('/product/product', ProductController.getProduct);
+productRouter.post('/register', ProductController.registerProduct);
+productRouter.get('/', ProductController.getProductOrProducts);
 
 export default productRouter
 

@@ -31,6 +31,14 @@ class UserService {
     }
     return user;
   }
+
+  async getUserById(id: number): Promise<User> {
+    const user=await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new BussinesException('Usuario no registrado', 404);
+    }
+    return user;
+  }
 }
 
 export default new UserService();

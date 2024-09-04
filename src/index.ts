@@ -31,10 +31,8 @@ const PORT = 3000;
 app.use(checkUndefined);
 
 //Routes
-app.use('/user',userRouter)
-app.use('/api',authRouter)
-app.use('/api',productRouter)
-
+app.use('/api/auth',authRouter)
+app.use('/api/products',productRouter)
 
 
 //Catch errors
