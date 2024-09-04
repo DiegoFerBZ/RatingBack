@@ -4,7 +4,7 @@ import userRouter from './routes/user-rt';
 import { checkUndefined } from './middlewares/checkUndefined';
 import { inicializarDB } from './infrastructure/db-postgres';
 import authRouter from './routes/auth-rt';
-import reviewRouter from './routes/review-rt';
+import productRouter from './routes/product-rt';
 import { errorHandler } from './middlewares/exceptions/errorHandler';
 import { setupSwagger } from './tools/utils/swagger/swagger';
 
@@ -31,9 +31,8 @@ const PORT = 3000;
 app.use(checkUndefined);
 
 //Routes
-app.use('/api/user',userRouter)
-app.use('/api/auth',authRouter)
-app.use('/api/reviews', reviewRouter);
+app.use('/user',userRouter)
+app.use('/api',authRouter)
 
 
 //Catch errors
