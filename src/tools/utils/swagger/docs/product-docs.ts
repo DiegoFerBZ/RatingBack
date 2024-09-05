@@ -154,7 +154,7 @@ export const getProductOrProducts = `
  export const makeAComment = `
  /**
  * @swagger
- * /api/products/comment:
+ * /products/comment:
  *   post:
  *     summary: Crear un nuevo comentario
  *     description: Permite a un usuario registrar un comentario para un producto específico.
@@ -198,6 +198,61 @@ export const getProductOrProducts = `
  *                       example: "Este es un excelente producto"
  *       400:
  *         description: Error en los datos de entrada
+ *       500:
+ *         description: Error interno del servidor
+ */
+`
+
+export const getCommentsByProduct = `
+/**
+ * @swagger
+ * /products/comments:
+ *   get:
+ *     summary: Obtener comentarios de un producto
+ *     description: Devuelve todos los comentarios asociados a un producto específico, identificados por el ID del producto.
+ *     tags:
+ *       - Comments
+ *     parameters:
+ *       - in: query
+ *         name: product_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: El ID del producto para el que se quieren obtener los comentarios.
+ *         example: 100
+ *     responses:
+ *       200:
+ *         description: Comentarios obtenidos exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: ID del comentario
+ *                     example: 1
+ *                   content:
+ *                     type: string
+ *                     description: El contenido del comentario.
+ *                     example: "Este es un excelente producto"
+ *                   user_id:
+ *                     type: integer
+ *                     description: ID del usuario que hizo el comentario
+ *                     example: 1
+ *                   product_id:
+ *                     type: integer
+ *                     description: ID del producto comentado
+ *                     example: 100
+ *                   created_at:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Fecha en que se hizo el comentario
+ *                     example: "2023-09-04T12:00:00Z"
+ *       400:
+ *         description: Error en los parámetros de entrada
  *       500:
  *         description: Error interno del servidor
  */
