@@ -35,7 +35,7 @@ export const registerUserDocs = `
  *                 description: The username for the user.
  *                 example: johndoe
  *     responses:
- *       200:
+ *       201:
  *         description: User successfully registered
  *         content:
  *           application/json:

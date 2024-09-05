@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user";
+import { Comment } from "./comment";
 
 @Entity('products')
 export class Product {
@@ -25,5 +26,8 @@ export class Product {
   @ManyToOne(() => User, (user) => user.products, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user!: User;
+
+  @OneToMany(() => Comment, (comment) => comment.product)
+  comments?: Comment[];
 
 }

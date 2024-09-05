@@ -5,6 +5,8 @@ const productRouter = express.Router();
 
 productRouter.post('/register', ProductController.registerProduct);
 productRouter.get('/', ProductController.getProductOrProducts);
+productRouter.get('/comments', ProductController.getCommentsByProduct);
+productRouter.post('/comment', ProductController.makeAComment);
 
 export default productRouter
 

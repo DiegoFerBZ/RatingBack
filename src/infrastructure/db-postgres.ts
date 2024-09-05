@@ -1,14 +1,16 @@
 import { DataSource } from "typeorm";
 import { User } from "../models/user";
+import { Product } from "../models/product";
+import { Comment } from "../models/comment";
 
 export const dataSource = new DataSource({
   type: "postgres",
   host: "localhost",
-  port: 5433,
+  port: 5432,
   username: "postgres",
-  password: "12345",
+  password: "test",
   database: "rating-db",
-  entities: [User],
+  entities: [User,Product,Comment],
   synchronize: true,
 });
 

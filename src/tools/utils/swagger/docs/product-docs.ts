@@ -78,3 +78,75 @@ export const registerNewProduct = `
  *       500:
  *         description: Internal server error
  */`
+
+export const getProductOrProducts = ` 
+/**
+ * @swagger
+* /products:
+ *   get:
+ *     summary: Retrieve a product or a list of products
+ *     description: Returns a product by ID if an ID is provided as a query parameter, otherwise returns a list of all products.
+ *     tags:
+ *       - Products
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         description: The ID of the product to retrieve.
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved product(s)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               oneOf:
+ *                 - type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: The ID of the product.
+ *                     name:
+ *                       type: string
+ *                       description: The name of the product.
+ *                     description:
+ *                       type: string
+ *                       description: The description of the product.
+ *                     url_img:
+ *                       type: string
+ *                       description: The URL of the product's image.
+ *                     review:
+ *                       type: string
+ *                       description: The product's review.
+ *                     user_id:
+ *                       type: integer
+ *                       description: The ID of the user who created the product.
+ *                 - type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: The ID of the product.
+ *                       name:
+ *                         type: string
+ *                         description: The name of the product.
+ *                       description:
+ *                         type: string
+ *                         description: The description of the product.
+ *                       url_img:
+ *                         type: string
+ *                         description: The URL of the product's image.
+ *                       review:
+ *                         type: string
+ *                         description: The product's review.
+ *                       user_id:
+ *                         type: integer
+ *                         description: The ID of the user who created the product.
+ *       400:
+ *         description: Invalid ID supplied
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: Internal server error
+ */`

@@ -1,10 +1,13 @@
+import { QueryFailedError } from "typeorm";
 import { dataSource } from "../infrastructure/db-postgres";
 import { BussinesException } from "../middlewares/exceptions/bussinesException";
+import { Comment } from "../models/comment";
 import { Product } from "../models/product";
 import userSvs from "./user-svs";
 
 class ProductService {
   productRepository = dataSource.getRepository(Product);
+  commentRepository = dataSource.getRepository(Comment);
 
   async getProducts(): Promise<Product[]> {
     return await this.productRepository.createQueryBuilder('product')
@@ -16,8 +19,7 @@ class ProductService {
       'product.url_img',
       'product.review',
       'user.id',
-      'user.username',
-      'user.email',
+      'user.username'
     ])
     .getMany();
   }
@@ -31,8 +33,8 @@ class ProductService {
       'product.description',
       'product.url_img',
       'product.review',
-      'user.id', // Solo trae estos campos del usuario si es necesario
-      'user.name'
+      'user.id',
+      'user.username',
     ])
     .where('product.id = :id', { id })
     .getOne();
@@ -53,6 +55,33 @@ class ProductService {
     const user = await userSvs.getUserById(user_id);
     const newProduct: Product = { name, description, url_img ,review,rating:5, user };
     return await this.productRepository.save(newProduct);
+  }
+
+  async makeAComment(content: string, user_id: number, product_id: number): Promise<Comment> {
+    const user = await userSvs.getUserById(user_id);
+    const product = await this.getProduct(product_id);
+    const newComment:Comment = { content,user,product };
+    try{
+    return await this.commentRepository.save(newComment);
+    }catch(error){
+      if (error instanceof QueryFailedError && error.message.includes('duplicate key value violates unique constraint')) {
+      throw new BussinesException('El producto ya tiene un comentario del usuario', 409);
+      }
+      throw new BussinesException('Error al registrar comentario', 500);
+    }
+  }
+
+  async getCommentsByProduct(product_id: number): Promise<Comment[]> {
+    return await this.commentRepository.createQueryBuilder('comment')
+    .leftJoinAndSelect('comment.user', 'user')
+    .select([
+      'comment.id',
+      'comment.content',
+      'user.id',
+      'user.username'
+    ])
+    .where('comment.productId = :product_id', { product_id })
+    .getMany();
   }
 
 }

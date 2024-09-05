@@ -2,6 +2,7 @@ import { Exclude, Expose } from "class-transformer";
 import { Column, Entity, OneToMany } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./product";
+import { Comment } from "./comment";
 
 @Entity('users')
 export class User {
@@ -30,5 +31,8 @@ export class User {
 
   @OneToMany(() => Product, (product) => product.user)
   products?: Product[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments?: Comment[];
 
 }

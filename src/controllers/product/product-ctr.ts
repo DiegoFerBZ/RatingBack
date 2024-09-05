@@ -4,6 +4,7 @@ import { CatcherException } from '../../tools/decorators/catcherException';
 import { ProductCreatedDTO } from './dtos/productExposed';
 import { plainToClass } from 'class-transformer';
 import { Product } from '../../models/product';
+import { Comment } from '../../models/comment';
 
 @CatcherException
 class ProductController {
@@ -26,6 +27,18 @@ class ProductController {
             const products = await getProducts();
             res.status(200).json(products);
         }
+    }
+
+    public async makeAComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const { content, user_id, product_id } = req.body;
+        const newComment:Comment = await producSvs.makeAComment(content, user_id, product_id);
+        res.status(201).json({message: 'Comentario registrado con éxito.', comment: {content}});
+    }
+
+    public async getCommentsByProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const product_id = req.query.product_id ? +req.query.product_id : 0;
+        const comments = await producSvs.getCommentsByProduct(+product_id);
+        res.status(200).json(comments);
     }
 
 }
