@@ -150,3 +150,55 @@ export const getProductOrProducts = `
  *       500:
  *         description: Internal server error
  */`
+
+ export const makeAComment = `
+ /**
+ * @swagger
+ * /api/products/comment:
+ *   post:
+ *     summary: Crear un nuevo comentario
+ *     description: Permite a un usuario registrar un comentario para un producto específico.
+ *     tags:
+ *       - Comments
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 description: Contenido del comentario.
+ *                 example: "Este es un excelente producto"
+ *               user_id:
+ *                 type: integer
+ *                 description: ID del usuario que realiza el comentario.
+ *                 example: 1
+ *               product_id:
+ *                 type: integer
+ *                 description: ID del producto comentado.
+ *                 example: 100
+ *     responses:
+ *       201:
+ *         description: Comentario registrado con éxito
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Comentario registrado con éxito.
+ *                 comment:
+ *                   type: object
+ *                   properties:
+ *                     content:
+ *                       type: string
+ *                       example: "Este es un excelente producto"
+ *       400:
+ *         description: Error en los datos de entrada
+ *       500:
+ *         description: Error interno del servidor
+ */
+`
