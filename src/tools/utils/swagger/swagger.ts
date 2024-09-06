@@ -16,6 +16,20 @@ const swaggerDefinition = {
       url: 'http://localhost:3000/api',
     },
   ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    },
+  },
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
 };
 
 // Opciones para Swagger JSDoc

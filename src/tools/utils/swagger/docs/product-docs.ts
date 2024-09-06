@@ -3,10 +3,12 @@ export const registerNewProduct = `
  * @swagger
  * /products/register:
  *   post:
- *     summary: Register a new product
- *     description: Registers a new product in the system with the provided details.
+ *     summary: Registrar un nuevo producto
+ *     description: Crea un nuevo producto con la información proporcionada. Este endpoint está protegido por un token de autorización en el header 'Authorization'.
  *     tags:
  *       - Products
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -16,27 +18,23 @@ export const registerNewProduct = `
  *             properties:
  *               name:
  *                 type: string
- *                 description: The name of the product.
- *                 example: "Sample Product"
+ *                 description: Nombre del producto.
+ *                 example: "Smartphone"
  *               description:
  *                 type: string
- *                 description: A brief description of the product.
- *                 example: "This is a detailed description of the sample product."
+ *                 description: Descripción del producto.
+ *                 example: "Un smartphone con gran batería y cámara."
  *               url_img:
  *                 type: string
- *                 description: The URL of the product's image.
- *                 example: "http://example.com/image.jpg"
+ *                 description: URL de la imagen del producto.
+ *                 example: "https://example.com/product-image.jpg"
  *               review:
  *                 type: string
- *                 description: A review or additional notes about the product.
- *                 example: "This product has received positive feedback."
- *               user_id:
- *                 type: integer
- *                 description: The ID of the user who is registering the product.
- *                 example: 1
+ *                 description: Opinión o reseña del producto.
+ *                 example: "Este producto es excelente para su precio."
  *     responses:
- *       200:
- *         description: Product successfully registered
+ *       201:
+ *         description: Producto registrado con éxito.
  *         content:
  *           application/json:
  *             schema:
@@ -44,40 +42,41 @@ export const registerNewProduct = `
  *               properties:
  *                 message:
  *                   type: string
- *                   description: Success message.
+ *                   description: Mensaje de éxito.
  *                   example: "Producto registrado con éxito."
  *                 product:
  *                   type: object
+ *                   description: Detalles del producto registrado.
  *                   properties:
  *                     id:
  *                       type: integer
- *                       description: The unique identifier of the product.
+ *                       description: ID del producto.
  *                       example: 1
  *                     name:
  *                       type: string
- *                       description: The name of the product.
- *                       example: "Sample Product"
+ *                       description: Nombre del producto.
+ *                       example: "Smartphone"
  *                     description:
  *                       type: string
- *                       description: The description of the product.
- *                       example: "This is a detailed description of the sample product."
+ *                       description: Descripción del producto.
+ *                       example: "Un smartphone con gran batería y cámara."
  *                     url_img:
  *                       type: string
- *                       description: The URL of the product's image.
- *                       example: "http://example.com/image.jpg"
+ *                       description: URL de la imagen del producto.
+ *                       example: "https://example.com/product-image.jpg"
  *                     review:
  *                       type: string
- *                       description: Review or additional notes about the product.
- *                       example: "This product has received positive feedback."
- *                     user_id:
- *                       type: integer
- *                       description: The ID of the user who registered the product.
- *                       example: 1
+ *                       description: Opinión o reseña del producto.
+ *                       example: "Este producto es excelente para su precio."
  *       400:
- *         description: Invalid input data
+ *         description: Datos de entrada inválidos.
+ *       401:
+ *         description: No autorizado. El token de autorización es inválido o no se proporcionó.
  *       500:
- *         description: Internal server error
- */`
+ *         description: Error interno del servidor.
+ */
+
+`;
 
 export const getProductOrProducts = ` 
 /**
@@ -149,9 +148,9 @@ export const getProductOrProducts = `
  *         description: Product not found
  *       500:
  *         description: Internal server error
- */`
+ */`;
 
- export const makeAComment = `
+export const makeAComment = `
  /**
  * @swagger
  * /products/comment:
@@ -171,14 +170,10 @@ export const getProductOrProducts = `
  *                 type: string
  *                 description: Contenido del comentario.
  *                 example: "Este es un excelente producto"
- *               user_id:
- *                 type: integer
- *                 description: ID del usuario que realiza el comentario.
- *                 example: 1
  *               product_id:
  *                 type: integer
  *                 description: ID del producto comentado.
- *                 example: 100
+ *                 example: 1
  *     responses:
  *       201:
  *         description: Comentario registrado con éxito
@@ -201,7 +196,7 @@ export const getProductOrProducts = `
  *       500:
  *         description: Error interno del servidor
  */
-`
+`;
 
 export const getCommentsByProduct = `
 /**
@@ -256,4 +251,4 @@ export const getCommentsByProduct = `
  *       500:
  *         description: Error interno del servidor
  */
-`
+`;

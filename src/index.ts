@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors'; 
-import userRouter from './routes/user-rt';
-import { checkUndefined } from './middlewares/checkUndefined';
+import { checkUndefined } from './middlewares/check-undefined';
 import { inicializarDB } from './infrastructure/db-postgres';
 import authRouter from './routes/auth-rt';
 import productRouter from './routes/product-rt';

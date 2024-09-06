@@ -11,7 +11,8 @@ class ProductController {
 
     
     public async registerProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const { name, description, url_img, review,user_id } = req.body;
+        const user_id: number = Number(req.user?.id ?? 0);
+        const { name, description, url_img, review } = req.body;
         const newProduct = await producSvs.registerNewProduct(name, description, url_img, review,user_id);
         const productDTO = plainToClass(ProductCreatedDTO, newProduct);
     
@@ -30,7 +31,8 @@ class ProductController {
     }
 
     public async makeAComment(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const { content, user_id, product_id } = req.body;
+        const user_id: number = Number(req.user?.id ?? 0);
+        const { content, product_id } = req.body;
         const newComment:Comment = await producSvs.makeAComment(content, user_id, product_id);
         res.status(201).json({message: 'Comentario registrado con éxito.', comment: {content}});
     }
