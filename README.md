@@ -11,13 +11,11 @@ Este proyecto es una API desarrollada con Node.js, Express y TypeScript. Utiliza
 
 Debes configurar las siguientes variables de entorno en un archivo `.env` en la raíz del proyecto:
 
-`.env`
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=tu_usuario
 DB_PASSWORD=tu_contraseña
 DB_NAME=nombre_base_de_datos
-PORT=3000
 
 ## Ejecución del proyecto
 
