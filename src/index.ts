@@ -6,6 +6,7 @@ import authRouter from './routes/auth-rt';
 import productRouter from './routes/product-rt';
 import { errorHandler } from './middlewares/exceptions/errorHandler';
 import { setupSwagger } from './tools/utils/swagger/swagger';
+import userRouter from './routes/user-auth';
 
 
 const app = express();
@@ -32,6 +33,7 @@ app.use(checkUndefined);
 //Routes
 app.use('/api/auth',authRouter)
 app.use('/api/products',productRouter)
+app.use('/api/user',userRouter)
 
 
 //Catch errors

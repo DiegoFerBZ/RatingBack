@@ -33,11 +33,26 @@ class UserService {
   }
 
   async getUserById(id: number): Promise<User> {
-    const user=await this.userRepository.findOne({ where: { id } });
+    const user=await this.userRepository.
+    createQueryBuilder('user')
+    .select([
+      'user.id',
+      'user.username',
+      'user.email',
+      'user.lastname',
+      'user.name',
+      'user.fecha_Eliminacion',
+    ])
+    .where('user.id = :id', { id })
+    .getOne();
     if (!user) {
       throw new BussinesException('Usuario no registrado', 404);
     }
     return user;
+  }
+
+  async editUser(user: User): Promise<void> {
+    await this.userRepository.save(user);
   }
 }
 
