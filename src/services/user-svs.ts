@@ -52,7 +52,15 @@ class UserService {
   }
 
   async editUser(user: User): Promise<void> {
+    try{
     await this.userRepository.save(user);
+  } catch (error) {
+    if ((error as any).code === '23505') { 
+      throw new BussinesException('El username ya existe', 400);
+    }
+    // Otros errores de base de datos
+    throw new BussinesException('Error al editar el usuario', 500);
+  }
   }
 }
 
